@@ -67,9 +67,13 @@ const Modal = () => {
     setNitName('')
     setError(null)
   }
+
+
   
   return (
 <>
+<h3 className='text-center'>Ingresar Usuario</h3>
+
 <div className='container'>
 <button type="button" className="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Insertar
