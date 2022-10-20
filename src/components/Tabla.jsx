@@ -35,48 +35,69 @@ const Tabla = () => {
       const listaFiltrada=lista.filter((elemento)=>elemento.id!==id)
       setLista(listaFiltrada)
     }
+    const editar=(elemento)=>{
+      setId(elemento.id)
+      setApellido(elemento.apellido)
+      setNitName(elemento.nitname)
+      setNombre(elemento.nombre)
+      setCelular(elemento.celular)
+      setCiudad(elemento.ciudad)
+      setDireccion(elemento.direccion)
+      setPais(elemento.pais)
+      
+    }
+    const editarDatos=async(e)=>{
+      e.preventDefault()
+    if(!nitname.trim()){
+      setError('Ingrese el nit name')
+      return
+    }
+    if(!nombre.trim()){
+      setError('Ingrese el nombre')
+      return
+    }
+    if(!apellido.trim()){
+      setError('Ingrese el apellido')
+      return
+    }
+    if(!celular.trim()){
+      setError('Ingrese el celular')
+      return
+    }
+    if(!ciudad.trim()){
+      setError('Ingrese una ciudad')
+      return
+    }
+    if(!direccion.trim()){
+      setError('Ingrese una direccion')
+      return
+    }
+    if(!pais.trim()){
+      setError('Ingrese un pais')
+      return
+    }
+      try {
+        const db = firebase.firestore()
+        await db.collection('usuarios').doc(id).update({
+         nitname,nombre,apellido,celular,ciudad,direccion,pais
+        })
+      } catch (error) {
+        //limpiar estados
+        setNombre('')
+        setApellido('')
+        setCelular('')
+        setDireccion('')
+        setPais('')
+        setCiudad('')
+        setNitName('')
+        setError(null)
+      }
+      
+    }
    
   return (
     <div className='container'>
- <table className="table table-striped table-hover">
-      <thead>
-        <tr>
-        <th>Nit Name</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Celular</th>
-        <th>Direccion</th>
-        <th>Ciudad</th>
-        <th>Pais</th>
-        <th>Foto</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
-        </tr>
-        
-      </thead>
-      <tbody>    
-        {
-          lista.map((elemento)=>(
-            <tr>
-              <td>{elemento.nitname}</td>
-              <td>{elemento.nombre}</td>
-              <td>{elemento.apellido}</td>
-              <td>{elemento.celular}</td>
-              <td>{elemento.direccion}</td>
-              <td>{elemento.ciudad}</td>
-              <td>{elemento.pais}</td>
-              <td><img src={elemento.id}/></td>
-              <td><button className="btn btn-danger"  type="button" data-bs-toggle="modal" data-bs-target="#EditarModal">Editar</button></td>
-              <td><button className="btn btn-primary" onClick={()=>{eliminarDato(elemento.id)}}>Eliminar</button></td>
-            </tr>
-          ))
-        }
-          
-        
-      </tbody>
-    </table>
-
-<form>
+      <form onSubmit={editarDatos}>
 <div className="modal fade" id="EditarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog modal-lg">
     <div className="modal-content">
@@ -180,6 +201,46 @@ const Tabla = () => {
   </div>
 </div>
 </form>
+
+ <table className="table table-striped table-hover">
+      <thead>
+        <tr>
+        <th>Nit Name</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Celular</th>
+        <th>Direccion</th>
+        <th>Ciudad</th>
+        <th>Pais</th>
+        <th>Foto</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+        </tr>
+        
+      </thead>
+      <tbody>    
+        {
+          lista.map((elemento)=>(
+            <tr>
+              <td>{elemento.nitname}</td>
+              <td>{elemento.nombre}</td>
+              <td>{elemento.apellido}</td>
+              <td>{elemento.celular}</td>
+              <td>{elemento.direccion}</td>
+              <td>{elemento.ciudad}</td>
+              <td>{elemento.pais}</td>
+              <td><img src={elemento.id}/></td>
+              <td><button className="btn btn-danger"  onClick={()=>editar(elemento)} type="button" data-bs-toggle="modal" data-bs-target="#EditarModal">Editar</button></td>
+              <td><button className="btn btn-primary" onClick={()=>{eliminarDato(elemento.id)}}>Eliminar</button></td>
+            </tr>
+          ))
+        }
+          
+        
+      </tbody>
+    </table>
+
+
     </div>   
   )
 }
