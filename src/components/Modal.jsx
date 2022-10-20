@@ -13,7 +13,7 @@ const Modal = () => {
   const [lista,setLista]=React.useState([])
   const [modoEdicion,setModoEdicion]=React.useState(false)
   const [error,setError]=React.useState(null)
-
+  
   const guardarDatos=async(e)=>{
     e.preventDefault()
     //validaciones
@@ -174,7 +174,7 @@ const Modal = () => {
           setCiudad('')
           setNitName('')
         }}>Cerrar</button>
-        <button type="submit" className="btn btn-primary">Guardar</button>
+        <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
       </div>
     </div>
   </div>
