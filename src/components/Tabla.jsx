@@ -13,16 +13,15 @@ const Tabla = () => {
   const [lista,setLista]=React.useState([])
   const [modoEdicion,setModoEdicion]=React.useState(false)
   const [error,setError]=React.useState(null)
+
   React.useEffect(()=>{
     const obtenerDatos= async()=>{
       try {
         const db = firebase.firestore()
-        const data = await db.collection('usuarios').get()
-        
-        const ArryData = data.docs.map(doc=>({
-          id: doc.id, ...doc.data()}))
-    
-          setLista(ArryData)
+         db.collection('usuarios').onSnapshot((querySnapshot)=>{
+          setLista(querySnapshot.docs.map((doc)=>({...doc.data(), id:doc.id})))
+        })
+          console.log(lista)
       } catch (error) {
         console.log(error)
       }
@@ -67,7 +66,7 @@ const Tabla = () => {
               <td>{elemento.pais}</td>
               <td></td>
               <td><button className="btn btn-danger">Editar</button></td>
-              <td><button className="btn btn-primary" onClick={()=>eliminarDato(elemento.id)}>Eliminar</button></td>
+              <td><button className="btn btn-primary" onClick={()=>{eliminarDato(elemento.id)}}>Eliminar</button></td>
             </tr>
           ))
         }
