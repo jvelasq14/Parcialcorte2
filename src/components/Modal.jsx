@@ -127,7 +127,7 @@ const Modal = () => {
           </div>
           <div className=" col-md-6 mb-3">
             <label for="recipient-name" className="col-form-label">Celular:</label>
-            <input type="text"
+            <input type="number"
              className="form-control"
              onChange={(e)=>{setCelular(e.target.value)}}
             value={celular}
