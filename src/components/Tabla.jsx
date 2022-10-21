@@ -144,7 +144,7 @@ const Tabla = () => {
           </div>
           <div className=" col-md-6 mb-3">
             <label for="recipient-name" className="col-form-label">Celular:</label>
-            <input type="text"
+            <input type="number"
              className="form-control"
              onChange={(e)=>{setCelular(e.target.value)}}
             value={celular}
@@ -229,7 +229,7 @@ const Tabla = () => {
               <td>{elemento.direccion}</td>
               <td>{elemento.ciudad}</td>
               <td>{elemento.pais}</td>
-              <td><img src={elemento.id}/></td>
+              <td><img src="https://i.picsum.photos/id/200/200/200.jpg?hmac=mk1Tu6dXHQvpaA8RfxlDUZjbWG23krNkiB9kyYoEmO8" height="30px" width="30px"/></td>
               <td><button className="btn btn-danger"  onClick={()=>editar(elemento)} type="button" data-bs-toggle="modal" data-bs-target="#EditarModal">Editar</button></td>
               <td><button className="btn btn-primary" onClick={()=>{eliminarDato(elemento.id)}}>Eliminar</button></td>
             </tr>
